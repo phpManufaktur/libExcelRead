@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Microsoft Excel BIFF5-8 workbook reader
  * Based on:
@@ -23,49 +24,54 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class BiffWorkbookException extends Exception {}
+class BiffWorkbookException extends Exception {
+}
 
 /**
  * Base class for BIFF elements
  */
-abstract class BiffWorkbookElement
-{
-	/**
-	 *
-	 * @var BiffWorkbook
-	 */
-	protected $_workbook = null;
+abstract class BiffWorkbookElement {
 
-	/**
-	 * Raw value of element
-	 * @var mixed
-	 */
-	public $raw = null;
+    /**
+     *
+     * @var BiffWorkbook
+     */
+    protected $_workbook = null;
 
-	abstract public function build ();
+    /**
+     * Raw value of element
+     * 
+     * @var mixed
+     */
+    public $raw = null;
 
-	/**
-	 * Constructor
-	 * @param BiffWorkbook $workbook Workbook
-	 * @param mixed $raw Raw data
-	 */
-	public function __construct ($workbook, $raw)
-	{
-		$this->raw = $raw;
-		$this->_workbook = $workbook;
-		$this->build ();
-	}
+    abstract public function build ();
+
+    /**
+     * Constructor
+     * 
+     * @param $workbook BiffWorkbook
+     *            Workbook
+     * @param $raw mixed
+     *            Raw data
+     */
+    public function __construct ($workbook, $raw) {
+        $this->raw = $raw;
+        $this->_workbook = $workbook;
+        $this->build();
+    }
 }
 
 /**
  * Interface for style elements
  */
-interface IBiffWorkbookCss
-{
-	/**
-	 * Build CSS properties string
-	 * @return string CSS
-	 */
-	public function css ();
+interface IBiffWorkbookCss {
+
+    /**
+     * Build CSS properties string
+     * 
+     * @return string CSS
+     */
+    public function css ();
 }
 ?>
