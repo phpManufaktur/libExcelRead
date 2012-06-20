@@ -26,7 +26,7 @@ if (defined('WB_PATH')) {
         include ($root . '/framework/class.secure.php');
     } else {
         trigger_error(
-                sprintf("[ <b>%s</b> ] Can't include class.secure.php!", 
+                sprintf("[ <b>%s</b> ] Can't include class.secure.php!",
                         $_SERVER['SCRIPT_NAME']), E_USER_ERROR);
     }
 }
@@ -34,14 +34,14 @@ if (defined('WB_PATH')) {
 
 $module_directory = 'lib_excel_read';
 $module_name = 'libExcelRead';
-$module_function = 'library';
-$module_version = '0.10';
+$module_function = (defined('LEPTON_VERSION')) ? 'library' : 'snippet';
+$module_version = '0.11';
 $module_status = 'Stable';
 $module_platform = '2.8';
 $module_author = 'Ralf Hertsch, Berlin (Germany)';
-$module_license = 'GNU General Public License';
+$module_license = 'MIT License (MIT)';
 $module_description = 'Read Excel files';
-$module_home = 'http://phpmanufaktur.de/libExcelRead';
+$module_home = 'http://phpmanufaktur.de';
 $module_guid = '6CEF36B2-D973-4EFF-A094-6A325985DF9E';
 
 ?>

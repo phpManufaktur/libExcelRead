@@ -1,0 +1,16 @@
+### libExcelRead
+2011 - 2012 by phpManufaktur
+Ralf Hertsch, Stockholmer Str. 31, 13359 Berlin (Germany)
+http://phpManufaktur.de - ralf.hertsch@phpManufaktur.de
+
+
+Release 0.11 - 2012-06-20
+
+* added LICENSE
+* added README.md
+* added CHANGELOG
+* moved the workbook files to /BiffWorkbook
+
+Release 0.10 - 2011-04-29
+
+* First Beta Release
