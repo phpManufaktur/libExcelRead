@@ -93,5 +93,5 @@ Please visit the [phpManufaktur] [4] to get more informations about **libExcelRe
 [1]: http://websitebaker2.org "WebsiteBaker Content Management System"
 [2]: http://lepton-cms.org "LEPTON CMS"
 [3]: https://addons.phpmanufaktur.de/download.php?file=libExcelRead
-[4]: https://addons.phpmanufaktur.de/de/name/libexcelread
+[4]: https://addons.phpmanufaktur.de/de/name/libexcelread.php
 [5]: https://phpmanufaktur.de/support
