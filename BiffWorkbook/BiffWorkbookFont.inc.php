@@ -23,77 +23,75 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('OFR_DIR'))
-    define('OFR_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+if (!defined ('OFR_DIR'))
+	define ('OFR_DIR', dirname (__FILE__) . DIRECTORY_SEPARATOR);
 
 require_once OFR_DIR . 'BiffWorkbookElement.inc.php';
 
 /**
  * Represents font in workbook
  */
-class BiffWorkbookFont extends BiffWorkbookElement implements IBiffWorkbookCss {
+class BiffWorkbookFont extends BiffWorkbookElement implements IBiffWorkbookCss
+{
+	/**
+	 * Font family
+	 * @var string
+	 */
+	public $family;
 
-    /**
-     * Font family
-     * 
-     * @var string
-     */
-    public $family;
+	/**
+	 * Font size, pt
+	 * @var int
+	 */
+	public $size;
 
-    /**
-     * Font size, pt
-     * 
-     * @var int
-     */
-    public $size;
+	/**
+	 * Font color
+	 * @var string
+	 */
+	public $color;
 
-    /**
-     * Font color
-     * 
-     * @var string
-     */
-    public $color;
+	/**
+	 * Font weight
+	 * @var int
+	 */
+	public $weight;
 
-    /**
-     * Font weight
-     * 
-     * @var int
-     */
-    public $weight;
+	/**
+	 * Underline
+	 * @var bool
+	 */
+	public $underline;
 
-    /**
-     * Underline
-     * 
-     * @var bool
-     */
-    public $underline;
+	/**
+	 * Italic
+	 * @var bool
+	 */
+	public $italic;
 
-    /**
-     * Italic
-     * 
-     * @var bool
-     */
-    public $italic;
+	public function build ()
+	{
+		$this->family = $this->raw ['family'];
+		$this->size = $this->raw ['size'] / 20;
+		$this->color = $this->_workbook->palette [$this->raw ['color']];
+		$this->weight = $this->raw ['weight'];
+		$this->underline = $this->raw ['underline'] > 0;
+		$this->italic = ($this->raw ['flags'] & 2) > 0;
+	}
 
-    public function build () {
-        $this->family = $this->raw['family'];
-        $this->size = $this->raw['size'] / 20;
-        $this->color = $this->_workbook->palette[$this->raw['color']];
-        $this->weight = $this->raw['weight'];
-        $this->underline = $this->raw['underline'] > 0;
-        $this->italic = ($this->raw['flags'] & 2) > 0;
-    }
-
-    public function css () {
-        return implode('; ', 
-                array('font-family: ' . $this->family, 
-                        'font-size: ' . $this->size . 'pt', 
-                        'color: #' . $this->color, 
-                        'font-weight: ' . $this->weight, 
-                        'text-decoration: ' .
-                                 ($this->underline ? 'underline' : 'none'), 
-                                'font-style: ' .
-                                 ($this->italic ? 'italic' : 'normal'))) . ';';
-}
+	public function css ()
+	{
+		return implode (
+			'; ',
+			array (
+				'font-family: ' . $this->family,
+				'font-size: ' . $this->size . 'pt',
+				'color: #' . $this->color,
+				'font-weight: ' . $this->weight,
+				'text-decoration: ' . ($this->underline ? 'underline' : 'none'),
+				'font-style: '. ($this->italic ? 'italic' : 'normal')
+			)
+		) . ';';
+	}
 }
 ?>

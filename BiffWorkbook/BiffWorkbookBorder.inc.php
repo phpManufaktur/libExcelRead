@@ -23,62 +23,72 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('OFR_DIR'))
-    define('OFR_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+if (!defined ('OFR_DIR'))
+	define ('OFR_DIR', dirname (__FILE__) . DIRECTORY_SEPARATOR);
 
 require_once OFR_DIR . 'BiffWorkbookElement.inc.php';
 
 /**
  * Excel cells border
  */
-class BiffWorkbookBorder extends BiffWorkbookElement implements IBiffWorkbookCss {
+class BiffWorkbookBorder extends BiffWorkbookElement implements IBiffWorkbookCss
+{
+	static private $_border_styles = array (
+		0x00 => array ('none', null),
+		0x01 => array ('solid', 1),
+		0x02 => array ('solid', 2),
+		0x03 => array ('dashed', 1),
+		0x04 => array ('dotted', 1),
+		0x05 => array ('solid', 3),
+		0x06 => array ('double', 1),
+		0x07 => array ('dotted', 1),
+		0x08 => array ('dashed', 2),
+		0x09 => array ('dashed', 1),
+		0x0a => array ('dashed', 2),
+		0x0b => array ('dashed', 1),
+		0x0c => array ('dashed', 2),
+		0x0d => array ('dashed', 2)
+	);
 
-    private static $_border_styles = array(0x00 => array('none', null), 
-            0x01 => array('solid', 1), 0x02 => array('solid', 2), 
-            0x03 => array('dashed', 1), 0x04 => array('dotted', 1), 
-            0x05 => array('solid', 3), 0x06 => array('double', 1), 
-            0x07 => array('dotted', 1), 0x08 => array('dashed', 2), 
-            0x09 => array('dashed', 1), 0x0a => array('dashed', 2), 
-            0x0b => array('dashed', 1), 0x0c => array('dashed', 2), 
-            0x0d => array('dashed', 2));
+	/**
+	 * Border style
+	 * @var string
+	 */
+	public $style;
 
-    /**
-     * Border style
-     * 
-     * @var string
-     */
-    public $style;
+	/**
+	 * Border width, px
+	 * @var int
+	 */
+	public $width;
 
-    /**
-     * Border width, px
-     * 
-     * @var int
-     */
-    public $width;
+	/**
+	 * Border color
+	 * @var string
+	 */
+	public $color;
 
-    /**
-     * Border color
-     * 
-     * @var string
-     */
-    public $color;
+	/**
+	 * Border position (left, right, top, bottom)
+	 * @var string
+	 */
+	public $type;
 
-    /**
-     * Border position (left, right, top, bottom)
-     * 
-     * @var string
-     */
-    public $type;
+	public function build ()
+	{
+		list ($this->style, $this->width) = self::$_border_styles [$this->raw ['style']];
+		$this->color = is_null ($this->raw ['color']) ? null : $this->_workbook->palette [$this->raw ['color']];
+		$this->type = $this->raw ['type'];
+	}
 
-    public function build () {
-        list ($this->style, $this->width) = self::$_border_styles[$this->raw['style']];
-        $this->color = is_null($this->raw['color']) ? null : $this->_workbook->palette[$this->raw['color']];
-        $this->type = $this->raw['type'];
-    }
-
-    public function css () {
-        return 'border-' . $this->type . ': ' . ($this->style == 'none' ? 'none' : $this->width .
-                 'px ' . $this->style . ' #' . $this->color) . ';';
-            }
-        }
-        ?>
+	public function css ()
+	{
+		return 'border-' . $this->type . ': '
+			. ($this->style == 'none'
+				? 'none'
+				: $this->width . 'px ' . $this->style . ' #' . $this->color
+			)
+			. ';';
+	}
+}
+?>

@@ -23,105 +23,94 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('OFR_DIR'))
-    define('OFR_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+if (!defined ('OFR_DIR'))
+	define ('OFR_DIR', dirname (__FILE__) . DIRECTORY_SEPARATOR);
 
 require_once OFR_DIR . 'BiffWorkbookCell.inc.php';
 
 /**
  * Excel workbook sheet
  */
-class BiffWorkbookSheet {
+class BiffWorkbookSheet
+{
+	const stateVisible = 0;
+	const stateHidden = 1;
+	const stateVeryHidden = 2;
 
-    const stateVisible = 0;
+	const typeWorksheet = 0;
+	const typeChart = 2;
+	const typeVBModule = 6;
 
-    const stateHidden = 1;
+	/**
+	 * Sheet visibility state (stateVisible, stateHidden, stateVeryHidden)
+	 * @var int
+	 */
+	public $state;
 
-    const stateVeryHidden = 2;
+	/**
+	 * Sheet type (typeWorksheet, typeChart, typeVBModule)
+	 * @var int
+	 */
+	public $type;
 
-    const typeWorksheet = 0;
+	/**
+	 * Worksheet substream offset
+	 * @var int
+	 */
+	public $offset;
 
-    const typeChart = 2;
+	/**
+	 * Worksheet name
+	 * @var string
+	 */
+	public $name;
 
-    const typeVBModule = 6;
+	/**
+	 * Two-dimensional array of BiffWorksheetCell. [row][cell]
+	 * @var array
+	 */
+	public $cells = array ();
 
-    /**
-     * Sheet visibility state (stateVisible, stateHidden, stateVeryHidden)
-     * 
-     * @var int
-     */
-    public $state;
+	/**
+	 * Workbook
+	 * @var BiffWorkbook
+	 */
+	public $workboook;
 
-    /**
-     * Sheet type (typeWorksheet, typeChart, typeVBModule)
-     * 
-     * @var int
-     */
-    public $type;
+	private $_cols = 0;
+	private $_rows = 0;
 
-    /**
-     * Worksheet substream offset
-     * 
-     * @var int
-     */
-    public $offset;
+	public function __construct ($workbook, $name, $raw)
+	{
+		$this->workboook = $workbook;
+		$this->name = $name;
+		$this->state = $raw ['state'];
+		$this->type = $raw ['type'];
+		$this->offset = $raw ['offset'];
+	}
 
-    /**
-     * Worksheet name
-     * 
-     * @var string
-     */
-    public $name;
+	/**
+	 * Columns count of worksheet
+	 */
+	public function cols ()
+	{
+		return $this->_cols;
+	}
 
-    /**
-     * Two-dimensional array of BiffWorksheetCell.
-     * [row][cell]
-     * 
-     * @var array
-     */
-    public $cells = array();
+	/**
+	 * Rows count of worksheet
+	 */
+	public function rows ()
+	{
+		return $this->_rows;
+	}
 
-    /**
-     * Workbook
-     * 
-     * @var BiffWorkbook
-     */
-    public $workboook;
+	public function addCell ($row, $col, $value, $rawValue, $type, $style)
+	{
+		if ($col >= $this->_cols) $this->_cols = $col + 1;
+		if ($row >= $this->_rows) $this->_rows = $row + 1;
 
-    private $_cols = 0;
-
-    private $_rows = 0;
-
-    public function __construct ($workbook, $name, $raw) {
-        $this->workboook = $workbook;
-        $this->name = $name;
-        $this->state = $raw['state'];
-        $this->type = $raw['type'];
-        $this->offset = $raw['offset'];
-    }
-
-    /**
-     * Columns count of worksheet
-     */
-    public function cols () {
-        return $this->_cols;
-    }
-
-    /**
-     * Rows count of worksheet
-     */
-    public function rows () {
-        return $this->_rows;
-    }
-
-    public function addCell ($row, $col, $value, $rawValue, $type, $style) {
-        if ($col >= $this->_cols)
-            $this->_cols = $col + 1;
-        if ($row >= $this->_rows)
-            $this->_rows = $row + 1;
-        
-        $this->cells[$row][$col] = new BiffWorkbookCell($this, $row, $col, 
-                $value, $rawValue, $type, $style);
-    }
+		$this->cells [$row][$col] = new BiffWorkbookCell ($this, $row, $col, $value, $rawValue, $type, $style);
+	}
 }
 ?>

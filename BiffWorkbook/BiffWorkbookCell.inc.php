@@ -23,96 +23,85 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('OFR_DIR'))
-    define('OFR_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+if (!defined ('OFR_DIR'))
+	define ('OFR_DIR', dirname (__FILE__) . DIRECTORY_SEPARATOR);
 
 require_once OFR_DIR . 'BiffWorkbookStyle.inc.php';
 
 /**
  * Excel workbook cell
  */
-class BiffWorkbookCell {
+class BiffWorkbookCell
+{
+	const typeString = 0;
+	const typeDate = 1;
+	const typeNumber = 2;
+	const typeBool = 3;
+	const typeError = 4;
 
-    const typeString = 0;
+	/**
+	 *
+	 * @var BiffWorkbookSheet
+	 */
+	public $worksheet;
 
-    const typeDate = 1;
+	/**
+	 *
+	 * @var BiffWorkbookStyle
+	 */
+	public $style;
 
-    const typeNumber = 2;
+	/**
+	 * Cell horizontal position
+	 * @var int
+	 */
+	public $row;
 
-    const typeBool = 3;
+	/**
+	 * Cell vertical position
+	 * @var int
+	 */
+	public $col;
 
-    const typeError = 4;
+	/**
+	 * Cell value
+	 * @var mixed
+	 */
+	public $value;
 
-    /**
-     *
-     * @var BiffWorkbookSheet
-     */
-    public $worksheet;
+	/**
+	 * Raw cell value
+	 * @var mixed
+	 */
+	public $rawValue;
 
-    /**
-     *
-     * @var BiffWorkbookStyle
-     */
-    public $style;
+	/**
+	 * Colspan of the cell
+	 * @var int
+	 */
+	public $colspan = 1;
 
-    /**
-     * Cell horizontal position
-     * 
-     * @var int
-     */
-    public $row;
+	/**
+	 * Rowspan of the cell
+	 * @var int
+	 */
+	public $rowspan = 1;
 
-    /**
-     * Cell vertical position
-     * 
-     * @var int
-     */
-    public $col;
+	/**
+	 * Cell type
+	 * @var int
+	 */
+	public $type;
 
-    /**
-     * Cell value
-     * 
-     * @var mixed
-     */
-    public $value;
-
-    /**
-     * Raw cell value
-     * 
-     * @var mixed
-     */
-    public $rawValue;
-
-    /**
-     * Colspan of the cell
-     * 
-     * @var int
-     */
-    public $colspan = 1;
-
-    /**
-     * Rowspan of the cell
-     * 
-     * @var int
-     */
-    public $rowspan = 1;
-
-    /**
-     * Cell type
-     * 
-     * @var int
-     */
-    public $type;
-
-    public function __construct ($worksheet, $row, $col, $value, $rawValue, 
-            $type, $style) {
-        $this->worksheet = $worksheet;
-        $this->row = $row;
-        $this->col = $col;
-        $this->rawValue = $rawValue;
-        $this->value = $value;
-        $this->type = $type;
-        $this->style = $style;
-    }
+	public function __construct ($worksheet, $row, $col, $value, $rawValue, $type, $style)
+	{
+		$this->worksheet = $worksheet;
+		$this->row = $row;
+		$this->col = $col;
+		$this->rawValue = $rawValue;
+		$this->value = $value;
+		$this->type = $type;
+		$this->style = $style;
+	}
 }
 ?>
