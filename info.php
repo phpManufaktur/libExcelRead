@@ -5,7 +5,7 @@
  *
  * @author Ralf Hertsch (ralf.hertsch@phpmanufaktur.de)
  * @link http://phpmanufaktur.de
- * @copyright 2011
+ * @copyright 2011 - 2013
  * @license GNU GPL (http://www.gnu.org/licenses/gpl.html)
  * @version $Id: info.php 29 2011-11-30 08:46:19Z phpmanufaktur $
  */
@@ -35,7 +35,7 @@ if (defined('WB_PATH')) {
 $module_directory = 'lib_excel_read';
 $module_name = 'libExcelRead';
 $module_function = (defined('LEPTON_VERSION')) ? 'library' : 'snippet';
-$module_version = '0.13';
+$module_version = '0.14';
 $module_status = 'Stable';
 $module_platform = '2.8';
 $module_author = 'Ralf Hertsch, Berlin (Germany)';

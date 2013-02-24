@@ -1,7 +1,16 @@
 ### libExcelRead
-2011 - 2012 by phpManufaktur
+2011 - 2013 by phpManufaktur
 Ralf Hertsch, Stockholmer Str. 31, 13359 Berlin (Germany)
 http://phpManufaktur.de - ralf.hertsch@phpManufaktur.de
+
+Release 0.14 - 2013-02-24
+
+* parameter "columns" enable to show only selected columns, i.e. "columns=3,5"
+  show only column 3 and 5 or to exclude one or more columns, i.e. "columns=-2"
+  don't show the column 2 but all others
+* parameter "auto_url=true" create regular http links, i.e. "www.show.me" will
+  be converted to <a href="http://www.show.me">www.show.me</a>
+* parameter "target=blank" will add a target="_blank" to auto_url links
 
 Release 0.13 - 2012-08-21
 
